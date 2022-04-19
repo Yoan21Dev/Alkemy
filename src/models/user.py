@@ -3,13 +3,11 @@ import string
 from unicodedata import category
 from numpy import integer
 
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Column, Integer, String, DateTime
+import db
 
-Base = declarative_base()
 
-class User(Base):
+class User(db.Base):
 
     __tablename__ = 'users'
     id = Column(Integer(), primary_key=True)
@@ -24,10 +22,6 @@ class User(Base):
     numero_de_telefono = Column(integer(), nullable = False)
     mail = Column(string(), nullable = False)
     web = Column (String(),nullable= False)
-
-
-    username = Column(String(50), nullable=False, unique = True)
-    email = Column(String(50), nullable=False, unique=True)
     create_at = Column(DateTime(), default=datetime.now())
  
     def __str__(self):
