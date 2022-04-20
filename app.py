@@ -1,6 +1,5 @@
-import imp
 from src.controller import Fuente
-from src.models import db_db 
+import db 
 from src.models import user
 
 
@@ -14,7 +13,8 @@ def run():
 
 if __name__ == '__main__':
     # main()
-    db_db.Base.metadata.create_all(db_db.engine)
+    db.Base.metadata.drop_all(db.engine)
+    db.Base.metadata.create_all(db.engine)
     run()
             
         

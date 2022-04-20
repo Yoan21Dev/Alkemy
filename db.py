@@ -2,10 +2,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine('postgresql://postgres:12345@localhost/example')
+engine = create_engine('postgresql://postgres:12345@localhost/postgres')
 
-Session = sessionmaker(bind=engine)
+Session = sessionmaker(engine)
 
 session = Session()
 
-Base = declarative_base()
+Base = declarative_base() 
