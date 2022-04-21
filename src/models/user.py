@@ -1,6 +1,5 @@
 from datetime import datetime
 from enum import unique
-import string
 from unicodedata import category
 from sqlalchemy import Column, Integer, String, DateTime,Float
 import db
@@ -23,7 +22,7 @@ class User(db.Base):
     update_at = Column(DateTime(), default=datetime.now())
     create_at = Column(DateTime(), default=datetime.now())
     def __str__(self):
-        return self.category,self.correo
+        return self.category
  
 class Producto(db.Base):
     __tablename__ = 'users'
