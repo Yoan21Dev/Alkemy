@@ -1,6 +1,4 @@
-from curses.panel import update_panels
 from datetime import datetime
-from email.policy import default
 from enum import unique
 import string
 from unicodedata import category
@@ -20,12 +18,12 @@ class User(db.Base):
     domicilio = Column(String(), nullable= False)
     codigo_postal = Column(Integer(), nullable = False)
     numero_de_telefono = Column(Integer(), nullable = False)
-    mail = Column(string())
+    # correo = Column(string(),nullable = False)
     web = Column (String(),nullable= False)
     update_at = Column(DateTime(), default=datetime.now())
     create_at = Column(DateTime(), default=datetime.now())
     def __str__(self):
-        return self.category
+        return self.category,self.correo
  
 class Producto(db.Base):
     __tablename__ = 'users'
