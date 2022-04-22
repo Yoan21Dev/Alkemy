@@ -21,8 +21,7 @@ class Fuente:
             except HTTPError as http_err:
                 print(f"HTTP error ocurrido: {http_err}")
             except ConnectionError as err:
- 
-                print(f"Error de coneccion: {err}")
+                print(f"Error de conexion: {err}")
             else:
                 print("success")
     """extraer csv y guardar archivo """
