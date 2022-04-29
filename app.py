@@ -1,6 +1,6 @@
 from src.controller import Fuente
 import db 
-from src.models import user
+from src.models import data
 
 
 def main():

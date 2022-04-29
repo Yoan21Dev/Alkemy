@@ -1,19 +1,20 @@
 
 -- Creacion de las tablas 
 
-CREATE TABLE `master` (
-'cod_localidad' int(3) UNSIGNED NOT NULL
-'id_provincia'  int(3) UNSIGNED NOT NULL
-'id_departamento' int(3) UNSIGNED NOT NULL
-'categoría' varchar(10)  NOT NULL
-'provincia' varchar(20)  NOT NULL
-'localidad' varchar(50)  NOT NULL
-'nombre'    varchar(10)  NOT NULL
-'domicilio' varchar(50)  NOT NULL
-'código_postal' int(3) UNSIGNED NOT NULL
-'número_de teléfono' int(10) UNSIGNED NOT NULL
-'mail'  varchar(50)  NOT NULL
-'web'   varchar(50)  NOT NULL
-);
- 
- 
+CREATE TABLE "Date" (
+        id INTEGER NOT NULL,
+        id_provincia INTEGER NOT NULL,
+        id_departamento INTEGER,
+        category VARCHAR NOT NULL,
+        provincia VARCHAR NOT NULL,
+        localidad VARCHAR NOT NULL,
+        nombre VARCHAR NOT NULL,
+        domicilio VARCHAR NOT NULL,
+        codigo_postal INTEGER NOT NULL,
+        numero_de_telefono INTEGER NOT NULL,
+        web VARCHAR NOT NULL,
+        update_at TIMESTAMP WITHOUT TIME ZONE,
+        create_at TIMESTAMP WITHOUT TIME ZONE,
+        PRIMARY KEY (id, id_provincia),
+        UNIQUE (id_departamento)
+)

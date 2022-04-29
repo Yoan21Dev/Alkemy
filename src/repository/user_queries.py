@@ -1,7 +1,7 @@
 from distutils.command.config import config
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-from src.models.user import Base, User
+from src.models.data import Base, User
 
 engine = create_engine(config('DB_ENGINE'))
 engine = create_engine('postgresql://postgres:12345@localhost/example')

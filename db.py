@@ -3,7 +3,13 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from decouple import config
 
-engine = create_engine('{}://postgres:12345@localhost/postgres'.format(config('DB_ENGINE')))
+Host = config('DB_HOST')
+E1 =  config('DB_ENGINE')
+E2 = config('DB_USER')
+E3 = config('DB_PASSWORD')
+E4 = config('DB_NAME')
+E5 = config('DB_PORT')
+engine = create_engine(f'{E1}://{E2}:{E3}@{Host}:{E5}/{E4}')
 
 Session = sessionmaker(engine)
 
