@@ -1,11 +1,11 @@
 #!/usr/bin/python
 from distutils.command.config import config
 from msilib.schema import Error
-from .Get_Data import get_data
-import io,requests,os.path,os,arrow
-import pandas as pd
+from .Get_Data import get_data_local
+import io,requests,os.path,os
 from requests.exceptions import HTTPError, ConnectionError
 from decouple import config
+from src.repository.user_queries import queries
 
 
 class Fuente:
@@ -15,9 +15,9 @@ class Fuente:
     def extraccion(self):
         with requests.Session() as s:
             try:
-                get_data(config('CSV_URL_M'),'Museo')
-                get_data(config('CSV_URL_C'),'Cines')
-                get_data(config('CSV_URL_B'),'Biblioteca')
+                get_data_local(config('CSV_URL_M'),'Museo')
+                get_data_local(config('CSV_URL_C'),'Cines')
+                get_data_local(config('CSV_URL_B'),'Biblioteca')
             except HTTPError as http_err:
                 print(f"HTTP error ocurrido: {http_err}")
             except ConnectionError as err:
@@ -25,5 +25,7 @@ class Fuente:
             else:
                 print("success")
     """extraer csv y guardar archivo """
-    def creacion(self):   
-        return
+
+    def create_tabla_and_data(self):
+        queries()
+        return 'success'

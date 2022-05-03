@@ -1,10 +1,17 @@
 from datetime import date
-from msilib.schema import Error
+from urllib.error import HTTPError as Error
 import pandas as pd 
 import io,requests,os.path,os,arrow
+from decouple import config
 
 
-def get_data(data, data_name): 
+
+data1 = config("CSV_URL_M")
+data2 = config("CSV_URL_B")
+data3 = config("CSV_URL_C")
+
+
+def get_data_local(data, data_name): 
     with requests.Session() as s:
         try:
             r = s.get(data)
@@ -20,16 +27,49 @@ def get_data(data, data_name):
     return print('finish')
 
 
+def get_remote_data(data):
+    with requests.Session() as s:
+        try:
+            r = s.get(data)
+            decode_content = r.content.decode("utf-8")
+            df1 = pd.read_csv(
+                io.StringIO(decode_content),
+                sep=",",
+            )
+            return df1
+        
+        except Error:
+            print({Error})
 
+dates = pd.concat(
+[get_remote_data(data1), get_remote_data(data2), get_remote_data(data3)]
+)
 
-
-# nombre_fichero = os.path.join(os.sep, "home", "manolo", "miscosas", "fichero.txt")
-# f = os.makedirs(nombre_fichero, "w")
-# file = open("/ruta/filename.txt", "w")
-# os.makedirs("Musica/Pop/2014", open("archivo.csv","w"))
-# date_string = "21 June, 2018"
-
-# print("date_string =", date_string)   
-# print(dir(os))
-# date_object = datetime.strptime(date_string, "%d %B, %Y")
-# print("date_object =", date_object)
+value_defaul = {
+"Web": "desconocido",
+"Mail": "desconocido",
+"provincia": "desconocido",
+"localidad": "desconocido",
+"nombre": "desconocido",
+"categoria": "desconocido",
+"telefono": "desconocido",
+"Domicilio": "desconocido",
+"cod_area": "desconocido",
+}
+values_df = dates.fillna( value = value_defaul)
+df_cod = values_df[
+[
+    "Cod_Loc",
+    "Domicilio",
+    "IdProvincia",
+    "IdDepartamento",
+    "categoria",
+    "provincia",
+    "localidad",
+    "nombre",
+    "cod_area",
+    "telefono",
+    "Mail",
+    "Web",
+]
+]
