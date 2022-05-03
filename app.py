@@ -8,13 +8,10 @@ def main():
     a.extraccion()
     a.create_tabla_and_data()
     
-
 def run():
     pass
 
-
 if __name__ == '__main__':
-    db.Base.metadata.drop_all(db.engine)
     db.Base.metadata.create_all(db.engine)
     run()
     main()
