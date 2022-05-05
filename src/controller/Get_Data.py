@@ -1,4 +1,5 @@
 from datetime import date
+from distutils.log import debug
 from urllib.error import HTTPError as Error
 import pandas as pd 
 import io,requests,os.path,os,arrow
@@ -14,12 +15,12 @@ data3 = config("CSV_URL_C")
 
 def log_info ():
     logging.basicConfig(
-        filename='%slog' % __file__[:-2],
-        filemode='w'
+        filename='log.log',
+        filemode='w',
+        level=logging.debug,
+        format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M%:%S'
     )
     return
-
-
 
 def get_data_local(data, data_name): 
     with requests.Session() as s:
@@ -84,3 +85,5 @@ df_cod = values_df[
 ]
 ]
 uniques = df_cod.groupby(['IdProvincia','provincia']).size().reset_index(name='count')
+
+# AAAA 1 20113110flCH!AAAAAA
