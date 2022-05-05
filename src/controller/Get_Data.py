@@ -3,12 +3,22 @@ from urllib.error import HTTPError as Error
 import pandas as pd 
 import io,requests,os.path,os,arrow
 from decouple import config
-
+import logging
 
 
 data1 = config("CSV_URL_M")
 data2 = config("CSV_URL_B")
 data3 = config("CSV_URL_C")
+
+
+
+def log_info ():
+    logging.basicConfig(
+        filename='%slog' % __file__[:-2],
+        filemode='w'
+    )
+    return
+
 
 
 def get_data_local(data, data_name): 
@@ -23,6 +33,7 @@ def get_data_local(data, data_name):
             os.makedirs(directorio,exist_ok=True)
             df.to_csv(f'{directorio}/{data_name}.csv')
         except Error:
+            
             print({Error})
     return print('finish')
 
@@ -37,7 +48,6 @@ def get_remote_data(data):
                 sep=",",
             )
             return df1
-        
         except Error:
             print({Error})
 
@@ -73,3 +83,4 @@ df_cod = values_df[
     "Web",
 ]
 ]
+uniques = df_cod.groupby(['IdProvincia','provincia']).size().reset_index(name='count')
