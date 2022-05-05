@@ -1,11 +1,11 @@
 from src.controller import Fuente
 import db 
-from src.models import data
+from src.models import models_data
 
 
 def main():
     a=Fuente()
-    a.extraccion()
+    # a.extraccion()
     a.create_tabla_and_data()
     
 def run():

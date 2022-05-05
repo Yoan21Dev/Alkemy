@@ -25,3 +25,18 @@ class info_documents(db.Base):
     def __str__(self):
         return self.id_provincia,self.category
    
+
+class provincia(db.Base):
+        __tablename__='provincias'
+        id = Column(Integer(),primary_key = True)
+        id_provincia = Column(String(),)
+        name_provincia = Column(String(),)
+        def __str__(self):
+            return self.name_provincia
+
+class total_record(db.Base):
+        __tablename__='total_records'
+        id =Column(Integer(),primary_key = True)
+        categorias_totals = Column(Integer())
+        fuentes_totals = Column(Integer())
+        provincia_categoria_totals = Column(Integer())
