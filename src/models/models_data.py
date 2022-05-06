@@ -25,7 +25,7 @@ class info_documents(db.Base):
     def __str__(self):
         return self.id_provincia,self.category
    
-
+ 
 class provincia(db.Base):
         __tablename__='provincias'
         id = Column(Integer(),primary_key = True)
