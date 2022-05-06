@@ -1,5 +1,4 @@
 from datetime import date
-from distutils.log import debug
 from urllib.error import HTTPError as Error
 import pandas as pd 
 import io,requests,os.path,os,arrow
@@ -17,7 +16,7 @@ def log_info ():
     logging.basicConfig(
         filename='log.log',
         filemode='w',
-        level=logging.debug,
+        level=logging.DEBUG,
         format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M%:%S'
     )
     return
@@ -36,7 +35,7 @@ def get_data_local(data, data_name):
         except Error:
             
             print({Error})
-    return print('finish')
+    return logging.info('finish')
 
 
 def get_remote_data(data):

@@ -5,8 +5,8 @@ from src.models import models_data
 
 def main():
     a=Fuente()
-    # a.extraccion()
-    a.create_tabla_and_data()
+    a.extraccion()
+    # a.create_tabla_and_data()
     
 def run():
     pass
