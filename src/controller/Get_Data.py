@@ -1,3 +1,4 @@
+from asyncio.log import logger
 from datetime import date
 from urllib.error import HTTPError as Error
 import pandas as pd 
@@ -12,19 +13,15 @@ data3 = config("CSV_URL_C")
 
 
 
-def log_info ():
-    logging.basicConfig(
-        filename='log.log',
-        filemode='w',
-        level=logging.DEBUG,
-        format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M%:%S'
-    )
-    return
-
+logging.basicConfig(
+    filename='log.log',
+    filemode='w',
+    level=logging.DEBUG,
+)
 def get_data_local(data, data_name): 
     with requests.Session() as s:
         try:
-            r = s.get(data)
+            r = s.get(data) 
             decode_content = r.content.decode('utf-8')  
             df = pd.read_csv(io.StringIO(decode_content),index_col=0)
             today = date.today()
@@ -33,9 +30,9 @@ def get_data_local(data, data_name):
             os.makedirs(directorio,exist_ok=True)
             df.to_csv(f'{directorio}/{data_name}.csv')
         except Error:
-            
             print({Error})
-    return logging.info('finish')
+            logging.exception(f'error inesperado {Error}')
+    return logging.info('finish',exc_info = True)
 
 
 def get_remote_data(data):
@@ -50,6 +47,8 @@ def get_remote_data(data):
             return df1
         except Error:
             print({Error})
+
+
 
 dates = pd.concat(
 [get_remote_data(data1), get_remote_data(data2), get_remote_data(data3)]
@@ -84,5 +83,3 @@ df_cod = values_df[
 ]
 ]
 uniques = df_cod.groupby(['IdProvincia','provincia']).size().reset_index(name='count')
-
-# AAAA 1 20113110flCH!AAAAAA

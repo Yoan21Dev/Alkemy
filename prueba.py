@@ -1,5 +1,6 @@
 from datetime import date
 from itertools import count
+import logging
 from os import dup, sep
 from unicodedata import category
 import pandas as pd
@@ -17,7 +18,12 @@ engine = create_engine("postgresql://postgres:12345@localhost/efe")
 Session = sessionmaker(engine)
 session = Session()
 
-
+logging.basicConfig(
+    filename='log.log',
+    filemode='w',
+    level=logging.DEBUG,
+#     format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M%:%S'
+)
 def get_remote_data(data):
     with requests.Session() as s:
         try:
@@ -27,9 +33,11 @@ def get_remote_data(data):
                 io.StringIO(decode_content1),
                 sep=",",
             )
+            logging.info('resquest of csv extraida', exc_info= True)
             return df1
         except Error:
             print({Error})
+            logging.exception(Error, exc_info = True)
 
 
 data1 = config("CSV_URL_M")
@@ -75,7 +83,7 @@ df_cod = values_df[
 # reg1 = (df_cod['categoria'].value_counts()) # categoria registro
 # reg2 = (values_df[['Fuente','categoria']].value_counts())
 # reg3 = (values_df['Fuente'].value_counts())
-print()
+print(data1)
 
 # dups = df_cod.pivot_table(index = ['Fuente'], aggfunc ='size') 
 # dups = dates.pivot_table(index = ['Fuente'], aggfunc ='size')
